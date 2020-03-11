@@ -1,11 +1,15 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
+import { Map } from 'immutable'
 
-//import { appReducer } from './app-reducer';
-//import { modalReducer } from './modal-reducer';
-//import { viewReducer } from './view-reducer';
+import { appReducer } from './app-reducer';
+import { agentReducer } from './agent-reducer';
+
+export interface RootState{
+    app: Map<any,any>,
+    agent: Map<any,any>
+}
 
 export const rootReducer = combineReducers({
-    //app: appReducer,
-    //modal: modalReducer,
-    //view: viewReducer
+    app: appReducer,
+    agent: agentReducer
 });
