@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import {Map} from 'immutable'
 import PropTypes from 'prop-types'
 import { generateIcon } from '../../icons'
-
+//import boatUrl, { ReactComponent as BoatSvg } from '../../icons/boat.svg'
+//import BoatSvg from '../../icons/boat.svg'
 import './style.scss'
 
 interface IProps {
@@ -13,11 +14,11 @@ interface IProps {
 export default function Navigation(props: IProps)
 {
     function generateItem(item:Map<any,any>){
-        let icon = generateIcon(item.get('icon'))
+        const Icon = generateIcon(item.get('icon'))
         return(
         <li key={'m_' + item.get('id')}>
             <Link to={item.get('url')} key={item.get('id')}>
-                <span className="faw">{icon}</span>
+                <span className="faw"><Icon /></span>
                 <span className="tx">{item.get('name')}</span>
             </Link>
         </li>

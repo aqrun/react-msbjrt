@@ -18,3 +18,8 @@
     width:893px;
     height:100%;
 }
+#root svg{
+    width:1em;
+    height:1em;
+    position:relative;
+}

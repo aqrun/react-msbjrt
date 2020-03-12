@@ -29,6 +29,9 @@ const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
 
+const { dirResolve } = require('./utils')
+const { cacheLoader} = require('./loaders')
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -501,14 +504,26 @@ module.exports = function(webpackEnv) {
             },
             {
               test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+              //loader: [cacheLoader, '@svgr/webpack'],
+              //include: [dirResolve('src')]
+              //use: ['@svgr/webpack', 'url-loader']
               use: [
-                {loader: 'babel-loader'},
+                {
+                  loader: 'babel-loader',
+                  options: {
+                    presets: ['preact', 'env'],
+                  },
+                },
                 {
                   loader: '@svgr/webpack',
-                  options: {babel:false, icon:true}
+                  options: {
+                    babel:false, 
+                    icon:true,
+                    svgProps: {fill: 'currentColor'},
+                    template:paths.appSrc + '/icons/svg.template.txt'
+                  },
                 }
-              ],
-              loader: require.resolve('@svgr/webpack')
+              ]
             }
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.

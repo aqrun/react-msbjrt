@@ -1,10 +1,10 @@
 import React from 'react'
-import Icon from '@ant-design/icons'
+//import Icon from '@ant-design/icons'
 
-import DashboardSvg from './dashboard.svg'
-import BoatSvg from './boat.svg'
-import HelpSvg from './help.svg'
-import RelationSvg from './relation.svg'
+import dashboardUrl, { ReactComponent as DashboardSvg } from './dashboard.svg'
+import boatUrl, { ReactComponent as BoatSvg } from './boat.svg'
+import helpUrl, { ReactComponent as HelpSvg } from './help.svg'
+import reationUrl, { ReactComponent as RelationSvg } from './relation.svg'
 
 export function generateIcon(icon, style = {}) {
   let component = ''
@@ -16,7 +16,8 @@ export function generateIcon(icon, style = {}) {
   }
   if (icons.hasOwnProperty(icon)) {
     component = icons[icon]
-    return <Icon component={component} style={style} />
+    //return <Icon component={component} style={style} />
+    return component
   }
   return ''
 }
