@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { RootState } from '../../reducers'
 import { bindActionCreators } from 'redux'
 import {generateIcon} from '../../icons'
-import { bindScroll } from '../../utils/event'
+import { checkScrollDown } from '../../utils/event'
 
 import {Item} from './componetns/item'
 import * as agentActions from '../../actions/agent-actions'
@@ -19,7 +19,8 @@ interface IProps{
     pagination: any,
     table_list_loading: boolean
 }
-let init = false;
+let init = false
+let eventBind = false
 
 const Agent = (props:IProps) => {
     let pager = props.pagination.toJS()
@@ -38,18 +39,7 @@ const Agent = (props:IProps) => {
             current:current, pageSize:pageSize
         })
     }
-    function bindScrollDown(){
-        // 回调中数据不更新
-        bindScroll(()=>{
-            // 没有加载数据 或 已加载数据小于数据库总数
-            //@ts-ignore
-            const ggstate = gstate
-            if(!props.table_list_loading && listSize<ggstate.pagination.total){
-               
-                loadTableList(ggstate.pagination.current+1, ggstate.pagination.pageSize)
-            } 
-        })
-    }
+    
     function loadMoreHandle(){
         loadTableList(pager.current+1, pager.pageSize)
     }
@@ -60,9 +50,36 @@ const Agent = (props:IProps) => {
         if(!init){
             init = true
             loadTableList(pager.current+1, pager.pageSize)
-            bindScrollDown()
         }
+        
     })
+
+    // scroll 事件处理
+    useEffect(() => {
+        function bindScrollDown(){
+            // 回调中数据不更新
+            checkScrollDown(()=>{
+                // 没有加载数据 或 已加载数据小于数据库总数
+                //@ts-ignore
+                const ggstate = gstate
+                if(!props.table_list_loading && listSize<ggstate.pagination.total){
+                    console.log('callback state not change:', pager)
+                    loadTableList(ggstate.pagination.current+1, ggstate.pagination.pageSize)
+                }
+            })
+        }
+        if(!eventBind){
+            eventBind = true
+            //bindScrollDown()
+            console.log('bind event')
+            window.addEventListener('scroll', bindScrollDown)
+        }
+        return ()=>{
+            console.log('event remove')
+            window.removeEventListener('scroll', bindScrollDown, false)
+            eventBind = false
+        }
+    },[])
 
     
     let loadingCls = 'iconw loading'
