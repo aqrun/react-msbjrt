@@ -1,0 +1,46 @@
+.history-list{
+    position:absolute;
+    bottom:0;
+    padding: 0 24px 20px 16px;
+    width:100%;
+    box-sizing: border-box;
+    h3{
+        font-size:18px;
+        color:#babcbe;
+    }
+    ul{
+        margin-top:10px;
+    }
+    li{
+        padding-left:25px;
+        width:100%;
+        display: block;
+        box-sizing: border-box;
+        height:24px;
+        line-height:24px;
+        position:relative;
+        overflow: hidden;
+        a{
+            font-size:12px;
+            color:#7a8085;
+            &:hover{
+                color:#1b8ba3;
+            }
+        }
+        &:before{
+            content: " ";
+            display: block;
+            position:absolute;
+            left:0;
+            top:12px;
+            background:#888b8e;
+            width:2px;
+            height:2px;
+        }
+        &:hover{
+            &:before{
+                background: #1b8ba3;
+            }
+        }
+    }
+}

@@ -1,0 +1,77 @@
+.agent-ul{
+    .control-w{
+        margin-top:23px;
+        .btn{
+            border:0;
+            border-radius: 0;
+            background:#00b4cf;
+            color:white;
+            height:29px;
+            line-height:29px;
+            padding: 0 18px;
+            &:hover{
+                background:#1cc6df;
+            }
+        }
+    }
+    .btn_deny{
+        float:right;
+        .tx{
+            display: inline-block;
+            margin-left:10px;
+        }
+    }
+    .deny{
+        font-size:14px;
+        position:relative;
+        top:2px;
+    }
+    .resources-w{
+        float:left;
+        .btn_add_resource{
+            width:29px;
+            text-align: center;
+            padding:0;
+            float:left;
+            font-size:20px;
+            cursor:pointer;
+        }
+        .plus{
+            width:100%;
+            text-align: center;
+            height:29px;
+            line-height:32px;
+            display:block;
+        }
+        ul{
+            float:left;
+            width:633px;
+        }
+        .rli{
+            float:left;
+            margin-left:12px;
+            height:29px;
+            line-height:29px;
+            background:#efefef;
+            color:#506070;
+            padding: 0 8px;
+            margin-bottom:10px;
+            .tx{
+                display: inline-block;
+                position: relative;
+                top:-3px;
+            }
+        }
+        .btn_remove{
+            height:29px;
+            line-height:32px;
+            display:inline-block;
+            font-size:16px;
+            margin-left:10px;
+            cursor:pointer;
+            &:hover{
+                color:red;
+            }
+        }
+    }
+}

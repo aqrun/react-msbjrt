@@ -1,0 +1,87 @@
+.agent-ul{
+    font-size:12px;
+    color:#2b4e77;
+    .li{
+        background:white;
+        //min-height:107px;
+        margin-top:20px;
+        padding:19px 0 14px 18px;
+        &:first-child{
+            margin-top:10px;
+        }
+    }
+    .system{
+        float:left;
+        width:78px;
+        height:78px;
+        img{
+            width:100%;
+        }
+    }
+    .right{
+        float:left;
+        margin-left:18px;
+        width:767px;
+        li{
+            float:left;
+            line-height: 25px;
+            height:25px;
+        }
+        .name{
+            .tx{
+                font-size:14px;
+                color:#03b6d4;
+                font-weight: bold;
+                display: inline-block;
+                margin-left:20px;
+                width:243px;
+                overflow: hidden;
+            }
+        }
+        .statusw{
+            margin-left:20px;
+            width:100px;
+        }
+        .status{
+            display:inline-block;
+            height:25px;
+            line-height:25px;
+            padding:0 10px;
+            background:#7fbc39;
+            color:white;
+            &.building{
+                background:#ff9826;
+                &:hover{
+                    background: #e37f10;
+                }
+            }
+            &:hover{
+                background:#62a417;
+            }
+        }
+        .ip{
+            width:150px;
+            .tx{
+                margin-left:14px;
+            }
+        }
+        .folder{
+            .tx{
+                margin-left:14px;
+            }
+        }
+    }
+    .info{
+        .iconw{
+            display:inline-block;
+            position: relative;
+            font-size:18px;
+            color:#9f9f9f;
+            top:4px;
+        }
+        .computer{
+            //font-size:18px;
+            top:-2px;
+        }
+    }
+}

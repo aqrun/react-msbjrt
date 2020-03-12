@@ -3,7 +3,7 @@ import { Route, useHistory, Switch } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from './reducers'
 //import logo from './logo.svg';
-import './styles/app.css';
+import './styles/app.scss';
 import {
   Agent,
   Dashboard,
