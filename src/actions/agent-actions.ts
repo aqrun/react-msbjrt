@@ -43,3 +43,38 @@ export function fetchDeleteResource(id:number|string){
     }
 }
 
+/**
+ * 
+ * @param data {
+ *   current: number,
+ *   pageSize: number
+ * }
+ */
+export function fetchTableList(data: any){
+    return {
+        type: types.FETCH_TABLE_LIST,
+        data:data
+    }
+}
+
+export function setTableList(data: any){
+    return {
+        type: types.SET_TABLE_LIST,
+        data:data
+    }
+}
+
+export function setTableListLoading(data:any){
+    return {
+        type: types.SET_TABLE_LIST_LOADING,
+        data:data
+    }
+}
+
+export function setPagination(data:any){
+    return {
+        type: types.SET_PAGINATION,
+        data:data,
+    }
+}
+

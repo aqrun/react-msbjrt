@@ -12,14 +12,16 @@ import {
 } from './pages'
 import {
   HistoryList,
-  Navigation
+  Navigation,
+  Footer,
+  Header
 } from './components'
 
 export function App() {
   let state = useSelector((state:RootState)=>state.app)
   let history = useHistory()
-  let win:any = window
-  win.s = history
+  //let win:any = window
+  //win.s = history
 
   useEffect(()=>{
     if(history.location.pathname === '/'){
@@ -28,19 +30,24 @@ export function App() {
   })
 
   return (
-    <div className="max-width main-container">
-      <div className="side-a">
-        <Navigation routes={state.get('routes')}/>
-        <HistoryList />
+    <div className="main-container" id="main-container">
+      <Header/>
+      <div className="content-w max-width">
+        <div className="side-a">
+          <Navigation routes={state.get('routes')}/>
+          <HistoryList />
+        </div>
+        <div className="side-a1"></div>
+        <div className="main">
+          <Switch>
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/agent" component={Agent} />
+            <Route path="/htlp" component={Htlp} />
+            <Route path="/my-cruise" component={MyCruise} />
+          </Switch>
+        </div>
       </div>
-      <div className="main">
-        <Switch>
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/agent" component={Agent} />
-          <Route path="/htlp" component={Htlp} />
-          <Route path="/my-cruise" component={MyCruise} />
-        </Switch>
-      </div>
+      <Footer />
     </div>
   )
 }

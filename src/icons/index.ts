@@ -13,6 +13,8 @@ import folderUrl, { ReactComponent as FolderSvg } from './folder.svg'
 import noteUrl, { ReactComponent as NoteSvg } from './note.svg'
 import plusUrl, { ReactComponent as PlusSvg } from './plus.svg'
 import trushUrl, { ReactComponent as TrushSvg } from './trush.svg'
+import avatarUrl, { ReactComponent as AvatarSvg} from './avatar.svg'
+import loadingUrl, { ReactComponent as LoadingSvg} from './loading.svg'
 
 export function generateIcon(icon:string, style = {}) {
   let component = ''
@@ -27,7 +29,9 @@ export function generateIcon(icon:string, style = {}) {
     folder: FolderSvg,
     note: NoteSvg,
     plus: PlusSvg,
-    trush: TrushSvg
+    trush: TrushSvg,
+    avatar:AvatarSvg,
+    loading: LoadingSvg
   }
   if (icons.hasOwnProperty(icon)) {
     // @ts-ignore

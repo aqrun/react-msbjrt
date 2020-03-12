@@ -8,52 +8,24 @@ export interface IResource {
 }
 
 export const initialPagination = {
-    current: 1,
+    current: 0,
     pageSize: 10,
-    pageSizeOptions: ['10', '20', '50', '100', '1000'],
-    showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: (total:any) => `Total: ${total}`,
+    total: 30,
 }
 
-const initData = [
-    {
-        id: 1, name: 'bjstdmngbgr08.xxx.com', status:'idle', ip: '192.168.1.102',
-        folder: '/var/lib/curise-agent', deny: 1, icon:'windows',
-        resources:[
-            {id: 1, name: 'firefox'},
-            {id: 2, name: 'safari'}
-        ]
-    },
-    {
-        id: 2, name: 'bjstdmngbgr08.xxx.com', status:'idle', ip: '192.168.1.102',
-        folder: '/var/lib/curise-agent', deny: 1,icon:'windows',
-        resources:[
-            {id: 1, name: 'firefox'},
-            {id: 2, name: 'safari'}
-        ]
-    },
-    {
-        id: 3, name: 'bjstdmngbgr08.xxx.com', status:'building', ip: '192.168.1.102',
-        folder: '/var/lib/curise-agent', deny: 0,icon:'ubuntu',
-        resources:[]
-    },
-    {
-        id: 4, name: 'bjstdmngbgr08.xxx.com', status:'building', ip: '192.168.1.102',
-        folder: '/var/lib/curise-agent', deny: 0,icon:'suse',
-        resources:[
-            {id: 1, name: 'firefox'},
-            {id: 2, name: 'safari'}
-        ]
-    }
-]
+interface IAgent{
+    id: string|number, 
+    name:string, status:string, ip: string,
+    folder: string, deny: number, icon:string,
+    resources:IResource[]
+}
+
+const initData:IAgent[] = []
 
 const inintialState = fromJS({
     table_list: initData,
     table_list_loading: false,
     pagination: initialPagination,
-    showVersionFormModal: false,
-    name: 'agent xxxx'
 });
 
 export const agentReducer = (
@@ -82,6 +54,20 @@ export const agentReducer = (
             const resources = tableList1.getIn([index1, 'resources'])
             const newResources = resources.filter((item:any)=>item.get('id')!==resourceId)
             return state.setIn(['table_list',index1, 'resources'], newResources)
+        case types.SET_TABLE_LIST:
+            const newState2 = state.updateIn(['table_list'], (arr:[])=>{
+                return arr.concat(fromJS(action.data))
+            })
+            return newState2
+        case types.SET_TABLE_LIST_LOADING:
+            return state.set('table_list_loading', action.data)
+        case types.SET_PAGINATION:
+            const pager = state.get('pagination').toJS()
+            let newState3 = state.set('pagination', fromJS(Object.assign({}, pager, action.data)))
+            let win:any = window
+            win.gstate = newState3.toJS()
+            //console.log('更新后', newState3.getIn(['pagination', 'current']))
+            return newState3
         default:
             return state;
     }
