@@ -35,16 +35,20 @@ function* fetchTableListWorker(action:any)
         const res = yield call(agentServices.fetchTableList, action.data)
         console.log('res', res)
         
-        current = res.current
-        pageSize = res.pageSize
-
-        //@ts-ignore
-        yield put(agentActions.setTableList(res.data))
-        yield put(agentActions.setPagination({
-            current: current,
-            pageSize: pageSize,
-            total: res.total,
-        }))
+        // 有数据
+        if(res.data.length){
+            current = res.current
+            pageSize = res.pageSize
+            
+            //@ts-ignore
+            yield put(agentActions.setTableList(res.data))
+            yield put(agentActions.setPagination({
+                current: current,
+                pageSize: pageSize,
+                total: res.total,
+            }))
+        }
+        
         yield put(agentActions.setTableListLoading(false))
     }catch(err){
         yield put(agentActions.setTableListLoading(false))

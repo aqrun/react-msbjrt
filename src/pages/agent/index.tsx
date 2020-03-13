@@ -90,7 +90,6 @@ const Agent = (props:IProps) => {
         </div>
     </div>)
     let bottomElement = loadMore
-
     if(listSize>=pager.total){
         bottomElement = noMore
     }

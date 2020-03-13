@@ -95,16 +95,13 @@ function randomNum(minNum:number, maxNum:number):number {
     }
 } 
 
-const total = 80
+const total = 30
 function mockTableList(params:any){
     const initData = tableData
     const pageSize = params.pageSize
     let res = []
     let max = pageSize
-    if(max<pageSize){
-        max = pageSize
-    }
-    let total_left = total - (pageSize * params.current)
+    let total_left = total - (pageSize * (params.current-1))
     if(total_left<pageSize){
         max = total_left
     }
