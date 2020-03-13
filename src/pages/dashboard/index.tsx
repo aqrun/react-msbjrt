@@ -14,7 +14,6 @@ export default function Dashboard(){
                 <li>主要功能基本已实现 </li>
                 <li>异步数据使用的JS客户端代码模拟</li>
                 <li>未做浏览器适配</li>
-                <li>还有一个问题是 Hook组件里的回调函数没法实现state数据更新，还要再查下资料</li>
             </ol>
         </div>
     )
