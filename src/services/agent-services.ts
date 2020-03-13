@@ -95,7 +95,7 @@ function randomNum(minNum:number, maxNum:number):number {
     }
 } 
 
-const total = 30
+const total = 53
 function mockTableList(params:any){
     const initData = tableData
     const pageSize = params.pageSize

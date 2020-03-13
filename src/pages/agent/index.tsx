@@ -68,10 +68,16 @@ const Agent = (props:IProps) => {
     })
     
     let loadingCls = 'iconw loading'
-    let loadingText = 'Load More'
+    const initText = 'Load More'
+    let loadingText = initText
+    let nomoreText = 'No more data to load'
+    if(listSize>=pager.total){
+        loadingText = nomoreText
+    }
     if(props.table_list_loading){
         loadingCls = 'iconw loading show'
         loadingText = 'Loading...'
+        nomoreText = 'Loading...'
     }
 
     let loadMore = (<div className="li">
@@ -84,15 +90,6 @@ const Agent = (props:IProps) => {
             </div>
         </div>
     </div>)
-    let noMore = (<div className="li">
-        <div className="load_more">
-            <div className="tx">No more data to load</div>
-        </div>
-    </div>)
-    let bottomElement = loadMore
-    if(listSize>=pager.total){
-        bottomElement = noMore
-    }
 
     return(
         <div className="agent-ul" id="agent-ul">
@@ -102,7 +99,7 @@ const Agent = (props:IProps) => {
                 agentActions={props.agentActions}
                 />)
             }
-            {bottomElement}
+            {loadMore}
         </div>
     )
 }
