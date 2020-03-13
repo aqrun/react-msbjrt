@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { RootState } from '../../reducers'
 import { bindActionCreators } from 'redux'
 import {generateIcon} from '../../icons'
-import { checkScrollDown } from '../../utils/event'
+import useWindowScrollBottom from '../../utils/useWindowScrollBottom'
 
 import {Item} from './componetns/item'
 import * as agentActions from '../../actions/agent-actions'
@@ -24,10 +24,16 @@ let eventBind = false
 
 const Agent = (props:IProps) => {
     let pager = props.pagination.toJS()
+    const pagerRef = useRef(null) as any
+    pagerRef.current = pager
+    const tableListLoadingRef = useRef(0) as any
+    tableListLoadingRef.current = props.table_list_loading
     //const pagerRef = useRef(pager)
     //pagerRef.current = pager
     //@ts-ignore
     let listSize = props.table_list.size
+    ///
+    useWindowScrollBottom(bindScrollDown)
     /* const store = useStore()
     const state = store.getState()
     const agentState = state.agent */
@@ -44,6 +50,13 @@ const Agent = (props:IProps) => {
         loadTableList(pager.current+1, pager.pageSize)
     }
 
+    function bindScrollDown(){
+        if(!tableListLoadingRef.current && listSize<pagerRef.current.total){
+            console.log('callback state not change:', pagerRef.current)
+            loadTableList(pagerRef.current.current+1, pagerRef.current.pageSize)
+        }
+    }
+
     useEffect(() => {
         //console.log('pager ...............', pager)
         //changeMainContainerHeight()
@@ -53,34 +66,6 @@ const Agent = (props:IProps) => {
         }
         
     })
-
-    // scroll 事件处理
-    useEffect(() => {
-        function bindScrollDown(){
-            // 回调中数据不更新
-            checkScrollDown(()=>{
-                // 没有加载数据 或 已加载数据小于数据库总数
-                //@ts-ignore
-                const ggstate = gstate
-                if(!props.table_list_loading && listSize<ggstate.pagination.total){
-                    console.log('callback state not change:', pager)
-                    loadTableList(ggstate.pagination.current+1, ggstate.pagination.pageSize)
-                }
-            })
-        }
-        if(!eventBind){
-            eventBind = true
-            //bindScrollDown()
-            console.log('bind event')
-            window.addEventListener('scroll', bindScrollDown)
-        }
-        return ()=>{
-            console.log('event remove')
-            window.removeEventListener('scroll', bindScrollDown, false)
-            eventBind = false
-        }
-    },[])
-
     
     let loadingCls = 'iconw loading'
     let loadingText = 'Load More'

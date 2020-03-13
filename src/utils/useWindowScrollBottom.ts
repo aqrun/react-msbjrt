@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 //import useRafState from './useRafState';
 
@@ -11,47 +10,41 @@ export const isClient = typeof window === 'object';
 } */
 
 const useWindowScroll = (callback:()=>void): void => {
-  /* const [state, setState] = useRafState<State>({
-    x: isClient ? window.pageXOffset : 0,
-    y: isClient ? window.pageYOffset : 0,
-  }); */
-  let currentBot = 0
-  let isScrollDown = false
-
+  const currentBot = useRef(0) as any
+  const isScrollDown = useRef(0) as any
+  //const marginBot = useRef(0) as any
   useEffect(() => {
     const handler = () => {
         let marginBot = 0;
-        if (Number(document.documentElement.scrollTop)){
-            var X=Number(document.documentElement.scrollHeight);
-            var Y=Number(document.documentElement.scrollTop)+Number(document.body.scrollTop);
-            var Z=Number(document.documentElement.clientHeight);
+        //marginBot.current = 0
+        const domel = window.document.documentElement as HTMLElement
+        const dombody = window.document.body as HTMLElement
+        if (domel.scrollTop){
+            const X=domel.scrollHeight;
+            const Y=domel.scrollTop+dombody.scrollTop;
+            const Z=domel.clientHeight;
             marginBot=X-Y-Z;
         } else {
-            var J=Number(document.body.scrollHeight);
-            var I=Number(document.body.scrollTop);
-            var K=Number(document.body.clientHeight);
+            const J=dombody.scrollHeight;
+            const I=dombody.scrollTop;
+            const K=dombody.clientHeight;
             marginBot=J-I-K;
         }
         if(marginBot<=0) {
             //console.log('to loading c m', currentBot, marginBot)
-            if(isScrollDown){
+            if(isScrollDown.current){
                 callback()
-                isScrollDown = false
+                isScrollDown.current = false
             }
         }else{
-            if(currentBot>marginBot){
-                isScrollDown = true;
+            if(currentBot.current>marginBot){
+                isScrollDown.current = true;
             }else{
-                isScrollDown = false
+                isScrollDown.current = false
             }
             //console.log('c m', currentBot, marginBot, isScrollDown)
-            currentBot = marginBot
+            currentBot.current = marginBot
         }
-
-      /* setState({
-        x: window.pageXOffset,
-        y: window.pageYOffset,
-      }); */
     };
 
     window.addEventListener('scroll', handler, {

@@ -64,8 +64,8 @@ export const agentReducer = (
         case types.SET_PAGINATION:
             const pager = state.get('pagination').toJS()
             let newState3 = state.set('pagination', fromJS(Object.assign({}, pager, action.data)))
-            let win:any = window
-            win.gstate = newState3.toJS()
+            //let win:any = window
+            //win.gstate = newState3.toJS()
             //console.log('更新后', newState3.getIn(['pagination', 'current']))
             return newState3
         default:

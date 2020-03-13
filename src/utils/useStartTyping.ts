@@ -42,6 +42,7 @@ const isTypedCharGood = ({ keyCode, metaKey, ctrlKey, altKey }: KeyboardEvent) =
 
 const useStartTyping = (onStartTyping: (event: KeyboardEvent) => void) => {
   useLayoutEffect(() => {
+      //@ts-ignore
     const keydown = event => {
       !isFocusedElementEditable() && isTypedCharGood(event) && onStartTyping(event);
     };
