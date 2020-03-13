@@ -1,15 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-//import useRafState from './useRafState';
-
 export const isClient = typeof window === 'object';
 
-/* export interface State {
-  x: number;
-  y: number;
-} */
-
-const useWindowScroll = (callback:()=>void): void => {
+/**
+ * 监听 界面滚动条滚动到最下面
+ * @param callback 
+ */
+const useWindowScrollBottom = (callback:()=>void): void => {
   const currentBot = useRef(0) as any
   const isScrollDown = useRef(0) as any
   //const marginBot = useRef(0) as any
@@ -32,8 +29,11 @@ const useWindowScroll = (callback:()=>void): void => {
         }
         if(marginBot<=0) {
             //console.log('to loading c m', currentBot, marginBot)
+            // 是向下滚动
             if(isScrollDown.current){
+                // 回调业务逻辑
                 callback()
+                // 防止回调连续触发 
                 isScrollDown.current = false
             }
         }else{
@@ -59,4 +59,4 @@ const useWindowScroll = (callback:()=>void): void => {
 
 };
 
-export default useWindowScroll;
+export default useWindowScrollBottom
